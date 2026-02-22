@@ -1,16 +1,341 @@
-/* ─── Design Tokens ──────────────────────────────────────────────────────────── */
 :root {
     --bg-dark: #050505;
-    --bg-card: rgba(26, 26, 26, 0.55);
+    --card-bg: rgba(15, 15, 20, 0.7);
     --accent-purple: #a020f0;
-    --accent-green: #00ff9f;
     --accent-cyan: #00ffff;
-    --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
-    --font-heading: 'Outfit', sans-serif;
+    --accent-green: #00ff9f;
+    --text-main: #f0f0f0;
+    --text-muted: #88888b;
+    --font-heading: 'Orbitron', sans-serif;
     --font-body: 'Inter', sans-serif;
-    --radius: 12px;
-    --transition: 0.3s ease;
-    --nav-height: 72px;
+    --nav-height: 100px;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-/* ... rest of styles.css ... */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+#smoke-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ── Navigation ── */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--nav-height);
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    transition: all 0.4s ease;
+}
+
+.navbar.scrolled {
+    height: 80px;
+    background: rgba(5, 5, 5, 0.95);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.nav-container.stacked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    gap: 0.25rem;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    color: var(--accent-cyan);
+    text-decoration: none;
+    letter-spacing: 4px;
+    text-shadow: 
+        0 0 15px rgba(0, 255, 255, 0.6),
+        0 0 30px rgba(0, 255, 255, 0.3);
+    transition: transform var(--transition), text-shadow var(--transition);
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    text-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.9),
+        0 0 40px rgba(0, 255, 255, 0.5);
+}
+
+.logo .accent {
+    color: var(--accent-purple);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 0.5rem;
+}
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color var(--transition);
+    opacity: 0.8;
+}
+
+.nav-links a:hover {
+    color: var(--accent-cyan);
+    opacity: 1;
+}
+
+.nav-right-actions {
+    position: absolute;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.cart-icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.4rem;
+    cursor: pointer;
+    position: relative;
+    transition: transform var(--transition);
+}
+
+.cart-icon-btn:hover {
+    transform: scale(1.1);
+}
+
+#cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: var(--accent-purple);
+    color: white;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* ── Hero Section ── */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: var(--nav-height);
+}
+
+.hero-content {
+    animation: fadeInUp 1s ease-out;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: rgba(160, 32, 240, 0.15);
+    border: 1px solid var(--accent-purple);
+    border-radius: 20px;
+    color: var(--accent-purple);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    letter-spacing: 12px;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    margin-bottom: 3rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all var(--transition);
+    margin: 0 0.5rem;
+}
+
+.cta-button.primary {
+    background: var(--accent-cyan);
+    color: #000;
+}
+
+.cta-button.primary:hover {
+    background: #fff;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    transform: translateY(-3px);
+}
+
+.cta-button.secondary {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.cta-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Glass Cards ── */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: 8px;
+}
+
+.about {
+    padding: 8rem 0;
+}
+
+.about h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-cyan);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.feature-item h3 {
+    font-family: var(--font-heading);
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.feature-item p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+}
+
+/* ── Footer ── */
+.footer {
+    background: rgba(2, 2, 2, 1);
+    padding: 6rem 0 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 4rem;
+}
+
+.footer h4 {
+    font-family: var(--font-heading);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.footer a:hover {
+    color: var(--accent-cyan);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 6rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}

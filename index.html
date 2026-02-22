@@ -3,38 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rollon' – Premium Smoking Accessories in Dhaka</title>
-    <meta name="description" content="Premium silicone water pipes, bongs, rolling papers, and hookahs. Fast delivery across Dhaka. Visit us at Alpana Plaza, Elephant Road.">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <title>Rollon' | Premium Smoking Accessories Dhaka</title>
+    <meta name="description" content="Rollon' is Dhaka's premier destination for high-quality smoking accessories, artisan bongs, and premium rolling supplies.">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-    <script src="three-bg.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "Rollon'",
+      "description": "High-quality smoking accessories in Dhaka",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressCountry": "BD"
+      },
+      "url": "https://rollon.com"
+    }
+    </script>
 </head>
 <body>
-    <div class="global-bg" id="canvas-container"></div>
-    <nav class="navbar">
-        <a href="index.html" class="logo">Rollon'</a>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="wishlist.html">Wishlist</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div class="nav-right">
-            <button class="cart-icon-btn" id="cart-icon">🛒<span id="cart-badge">0</span></button>
-        </div>
-    </nav>
-    <header class="hero">
-        <div class="hero-content">
-            <h1>Elevate Your Experience</h1>
-            <p>Premium Smoking Accessories at Alpana Plaza, Elephant Road, Dhaka 1205</p>
-            <a href="products.html" class="cta-button">Shop Now</a>
-        </div>
+    <canvas id="smoke-bg" aria-hidden="true"></canvas>
+
+    <header role="banner">
+        <nav class="navbar" aria-label="Main Navigation">
+            <!-- Dynamic Nav Injected via app.js -->
+        </nav>
     </header>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <span class="badge">Dhaka's Finest</span>
+                <h1>ROLLON<span class="accent">'</span></h1>
+                <p class="hero-subtitle">Premium Accessories. Discreet Delivery. Pure Experience.</p>
+                <div class="hero-ctas">
+                    <a href="products.html" class="cta-button primary">Explore Collection</a>
+                    <a href="#about" class="cta-button secondary">Our Story</a>
+                </div>
+            </div>
+            <div class="scroll-indicator" aria-hidden="true">
+                <span></span>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="glass-card">
+                    <h2>Elevate Your Session</h2>
+                    <p>Rollon' was born from a simple idea: that Dhaka's connoisseurs deserve a premium, reliable, and discreet way to access the world's best smoking culture. We bring you hand-picked, medical-grade accessories that blend functionality with futuristic art.</p>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <span class="feature-icon">🛡️</span>
+                            <h3>Discreet</h3>
+                            <p>Plain, unmarked packaging for your privacy.</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🚀</span>
+                            <h3>Fast</h3>
+                            <p>Express delivery across Dhaka City.</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">💎</span>
+                            <h3>Premium</h3>
+                            <p>Only the highest quality materials selected.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container grid">
+            <div class="footer-brand">
+                <div class="logo">ROLLON'</div>
+                <p>Establishing the new standard in Dhaka's session culture.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="loyalty.html">Rewards</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>📧 rollonbd1@gmail.com</p>
+                <p>📱 WhatsApp: +880 1XXX-XXXXXX</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Rollon' Dhaka. All rights reserved. | 18+ Only</p>
+        </div>
+    </footer>
+
+    <script src="js/config.js"></script>
     <script src="js/products-data.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/wishlist.js"></script>
     <script src="js/app.js"></script>
+    <script src="three-bg.js"></script>
 </body>
 </html>

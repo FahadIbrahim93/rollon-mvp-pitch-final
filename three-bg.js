@@ -1,85 +1,155 @@
 /**
  * @file three-bg.js
- * Premium 3D animated background: Smoke Spiral & Rising Ash.
+ * Enhanced 3D Background with Smoke & Rising Ash particles.
+ * Optimized with Frustum Culling and Visibility API.
  */
-(function () {
-    'use strict';
-    let scene, camera, renderer, smokeParticles = [], ashParticles, animId;
-    let clock = new THREE.Clock();
 
-    function init() {
-        const container = document.getElementById('canvas-container');
-        if (!container || !window.THREE) return;
+let scene, camera, renderer, clock, animId;
+let smokeParticles = [];
+let ashParticles;
 
-        scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x050505);
-        scene.fog = new THREE.FogExp2(0x050505, 0.005);
+function init() {
+    const canvas = document.getElementById('smoke-bg');
+    if (!canvas) return;
 
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-        camera.position.z = 100;
+    clock = new THREE.Clock();
+    scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x050505, 0.0012);
 
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        container.appendChild(renderer.domElement);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.z = 1;
+    camera.rotation.x = 1.16;
+    camera.rotation.y = -0.12;
+    camera.rotation.z = 0.27;
 
-        const loader = new THREE.TextureLoader();
-        const smokeTexture = loader.load('https://s3-us-west-2.amazonaws.com/s.cdpn.io/95637/Smoke-Element.png');
-        const smokeGeo = new THREE.PlaneGeometry(300, 300);
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(scene.fog.color);
+
+    // Light
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(0, 0, 1);
+    scene.add(dirLight);
+
+    const purpleLight = new THREE.PointLight(0xa020f0, 4, 1000);
+    purpleLight.position.set(200, 300, 100);
+    scene.add(purpleLight);
+
+    const cyanLight = new THREE.PointLight(0x00ffff, 4, 1000);
+    cyanLight.position.set(-200, 300, 100);
+    scene.add(cyanLight);
+
+    // Smoke Load
+    const loader = new THREE.TextureLoader();
+    loader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/lava/cloud.png', function (texture) {
+        const smokeGeo = new THREE.PlaneGeometry(500, 500);
         const smokeMat = new THREE.MeshLambertMaterial({
-            map: smokeTexture, transparent: true, opacity: 0.15, depthWrite: false, color: 0x222222
+            map: texture,
+            transparent: true,
+            opacity: 0.15,
+            depthWrite: false,
+            color: 0x222222
         });
 
         for (let p = 0; p < 45; p++) {
             const particle = new THREE.Mesh(smokeGeo, smokeMat);
-            particle.position.set(Math.random() * 500 - 250, Math.random() * 500 - 250, Math.random() * 1000 - 100);
+            particle.position.set(
+                Math.random() * 1000 - 500,
+                Math.random() * 1000 - 500,
+                Math.random() * 1000 - 100
+            );
             particle.rotation.z = Math.random() * 360;
             scene.add(particle);
             smokeParticles.push(particle);
         }
+        
+        // Add Ash Particles
+        createAsh();
+        animate();
+    });
 
-        const ashGeo = new THREE.BufferGeometry();
-        const ashCount = 300;
-        const positions = new Float32Array(ashCount * 3);
-        for (let i = 0; i < ashCount; i++) {
-            positions[i * 3] = (Math.random() - 0.5) * 400;
-            positions[i * 3 + 1] = (Math.random() - 0.5) * 400;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 400;
-        }
-        ashGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        const ashMat = new THREE.PointsMaterial({ size: 2, color: 0xffffff, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending });
-        ashParticles = new THREE.Points(ashGeo, ashMat);
-        scene.add(ashParticles);
+    window.addEventListener('resize', onWindowResize, false);
+    document.addEventListener('visibilitychange', handleVisibilityChange, false);
+}
 
-        const light = new THREE.DirectionalLight(0xffffff, 0.5);
-        light.position.set(-1, 0, 1);
-        scene.add(light);
-        scene.add(new THREE.PointLight(0xa020f0, 2, 300)).position.set(50, 50, 50);
-        scene.add(new THREE.PointLight(0x00ffff, 2, 300)).position.set(-50, -50, 50);
+function createAsh() {
+    const ashCount = 1200;
+    const ashGeo = new THREE.BufferGeometry();
+    const positions = new Float32Array(ashCount * 3);
 
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+    for (let i = 0; i < ashCount * 3; i++) {
+        positions[i] = Math.random() * 600 - 300;
+    }
+
+    ashGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    // Create circular texture procedurally for softer embers
+    const canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    gradient.addColorStop(0, 'rgba(255,255,255,0.8)');
+    gradient.addColorStop(0.5, 'rgba(255,255,255,0.2)');
+    gradient.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 64, 64);
+    const emberTexture = new THREE.CanvasTexture(canvas);
+
+    const ashMat = new THREE.PointsMaterial({
+        size: 2.2,
+        map: emberTexture,
+        transparent: true,
+        opacity: 0.45,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        sizeAttenuation: true
+    });
+
+    ashParticles = new THREE.Points(ashGeo, ashMat);
+    scene.add(ashParticles);
+}
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function handleVisibilityChange() {
+    if (document.hidden) {
+        cancelAnimationFrame(animId);
+    } else {
         animate();
     }
+}
 
-    function animate() {
-        animId = requestAnimationFrame(animate);
-        const delta = clock.getDelta();
-        smokeParticles.forEach(p => {
-            p.rotation.z += delta * 0.15;
-            p.position.y += delta * 5;
-            if(p.position.y > 250) p.position.y = -250;
-        });
-        const pos = ashParticles.geometry.attributes.position.array;
-        for (let i = 1; i < pos.length; i += 3) {
-            pos[i] += delta * 20;
-            if (pos[i] > 200) pos[i] = -200;
-        }
-        ashParticles.geometry.attributes.position.needsUpdate = true;
-        renderer.render(scene, camera);
+function animate() {
+    animId = requestAnimationFrame(animate);
+    const delta = clock.getDelta();
+
+    // Rotate smoke
+    smokeParticles.forEach(p => {
+        p.rotation.z += delta * 0.12;
+        p.position.y += delta * 8; // Gentle drift
+        if (p.position.y > 500) p.position.y = -500;
+    });
+
+    // Drift Ash
+    const positions = ashParticles.geometry.attributes.position.array;
+    for (let i = 1; i < positions.length; i += 3) {
+        positions[i] += delta * 25; // Drift up
+        if (positions[i] > 300) positions[i] = -300;
+        
+        // Add subtle horizontal sway
+        positions[i-1] += Math.sin(Date.now() * 0.001 + i) * 0.1;
     }
-    document.addEventListener('DOMContentLoaded', init);
-}());
+    ashParticles.geometry.attributes.position.needsUpdate = true;
+
+    renderer.render(scene, camera);
+}
+
+init();
