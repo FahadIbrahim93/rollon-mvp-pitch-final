@@ -10,19 +10,14 @@
     <script src="three-bg.js" defer></script>
 </head>
 <body>
-    <div class="global-bg" id="canvas-container"></div>
-    <nav class="navbar">
-        <a href="index.html" class="logo">Rollon'</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="wishlist.html">Wishlist</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-    <main class="page-main section-container">
-        <h1>🎁 Mystery Box</h1>
-        <div class="mystery-boxes"></div>
+    <canvas id="smoke-bg" aria-hidden="true"></canvas>
+    <nav class="navbar"></nav>
+    <main class="container page-main">
+        <section class="glass-card">
+            <h1>🎁 Mystery Box Drops</h1>
+            <p>Each box includes curated premium accessories with surprise value above listed price.</p>
+        </section>
+        <section class="mystery-boxes checkout-layout"></section>
     </main>
     <script src="js/config.js" defer></script>
     <script src="js/products-data.js" defer></script>
@@ -30,5 +25,6 @@
     <script src="js/wishlist.js" defer></script>
     <script src="js/monitoring.js" defer></script>
     <script src="js/app.js" defer></script>
+    <script src="js/mystery-box-page.js" defer></script>
 </body>
 </html>

@@ -10,29 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Store",
-      "name": "Rollon'",
-      "description": "High-quality smoking accessories in Dhaka",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Dhaka",
-        "addressCountry": "BD"
-      },
-      "url": "https://rollon.com"
-    }
-    </script>
 </head>
 <body>
     <canvas id="smoke-bg" aria-hidden="true"></canvas>
-
-    <header role="banner">
-        <nav class="navbar" aria-label="Main Navigation">
-            <!-- Dynamic Nav Injected via app.js -->
-        </nav>
-    </header>
+    <header role="banner"><nav class="navbar" aria-label="Main Navigation"></nav></header>
 
     <main id="main-content">
         <section class="hero">
@@ -42,64 +23,38 @@
                 <p class="hero-subtitle">Premium Accessories. Discreet Delivery. Pure Experience.</p>
                 <div class="hero-ctas">
                     <a href="products.html" class="cta-button primary">Explore Collection</a>
-                    <a href="#about" class="cta-button secondary">Our Story</a>
+                    <a href="checkout.html" class="cta-button secondary">Checkout</a>
                 </div>
-            </div>
-            <div class="scroll-indicator" aria-hidden="true">
-                <span></span>
             </div>
         </section>
 
-        <section id="about" class="about">
+        <section class="about" id="about">
             <div class="container">
                 <div class="glass-card">
                     <h2>Elevate Your Session</h2>
-                    <p>Rollon' was born from a simple idea: that Dhaka's connoisseurs deserve a premium, reliable, and discreet way to access the world's best smoking culture. We bring you hand-picked, medical-grade accessories that blend functionality with futuristic art.</p>
+                    <p>Curated accessories, private delivery, and reliable support for enthusiasts across Dhaka.</p>
                     <div class="feature-grid">
-                        <div class="feature-item">
-                            <span class="feature-icon">🛡️</span>
-                            <h3>Discreet</h3>
-                            <p>Plain, unmarked packaging for your privacy.</p>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">🚀</span>
-                            <h3>Fast</h3>
-                            <p>Express delivery across Dhaka City.</p>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">💎</span>
-                            <h3>Premium</h3>
-                            <p>Only the highest quality materials selected.</p>
-                        </div>
+                        <div class="feature-item"><span class="feature-icon">🛡️</span><h3>Discreet</h3><p>Plain unmarked packaging.</p></div>
+                        <div class="feature-item"><span class="feature-icon">🚀</span><h3>Fast</h3><p>Next-day options in key zones.</p></div>
+                        <div class="feature-item"><span class="feature-icon">💎</span><h3>Premium</h3><p>Hand-picked high quality gear.</p></div>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <section class="container page-main">
+            <h2 class="page-title">Featured This Week</h2>
+            <div id="featured-grid" class="product-grid"></div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container grid">
-            <div class="footer-brand">
-                <div class="logo">ROLLON'</div>
-                <p>Establishing the new standard in Dhaka's session culture.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="loyalty.html">Rewards</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <p>📧 rollonbd1@gmail.com</p>
-                <p>📱 WhatsApp: +880 1XXX-XXXXXX</p>
-            </div>
+            <div><div class="logo">ROLLON'</div><p>Establishing the new standard in Dhaka's session culture.</p></div>
+            <div><h4>Quick Links</h4><ul><li><a href="products.html">Products</a></li><li><a href="loyalty.html">Rewards</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+            <div><h4>Contact</h4><p>📧 rollonbd1@gmail.com</p><p>📱 WhatsApp: +880 1XXX-XXXXXX</p></div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Rollon' Dhaka. All rights reserved. | 18+ Only</p>
-        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Rollon' Dhaka. All rights reserved. | 18+ Only</p></div>
     </footer>
 
     <script src="js/config.js" defer></script>
@@ -109,6 +64,7 @@
     <script src="js/wishlist.js" defer></script>
     <script src="js/monitoring.js" defer></script>
     <script src="js/app.js" defer></script>
+    <script src="js/home-page.js" defer></script>
     <script src="three-bg.js" defer></script>
 </body>
 </html>

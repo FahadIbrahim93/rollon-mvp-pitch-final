@@ -395,3 +395,42 @@ body {
     background: rgba(0,0,0,0.35);
     color: var(--text-main);
 }
+
+.user-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 1.2rem;
+    position: relative;
+}
+
+.tier-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.mystery-card {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.price {
+    font-weight: 700;
+    color: var(--accent-green);
+}
+
+@media (max-width: 900px) {
+    .feature-grid,
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-right-actions {
+        right: 1rem;
+        gap: 0.8rem;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+    }
+}
