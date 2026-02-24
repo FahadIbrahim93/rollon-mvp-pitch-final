@@ -53,23 +53,28 @@
     }
 
     async function register({ name, email, phone, password }) {
+        if (!name || !email || !phone || !password) return { ok: false, error: 'All fields are required.' };
+        if (password.length < 8) return { ok: false, error: 'Password must be at least 8 characters.' };
         if (findUser(email)) return { ok: false, error: 'User exists.' };
+
         const salt = generateSalt();
         const hash = await hashPassword(password, salt);
-        const user = { email, name, phone, passwordHash: hash, salt, loyaltyPoints: 0, tier: 'Rookie Roller', orderIds: [], joinDate: new Date().toISOString() };
+        const normalizedEmail = email.toLowerCase().trim();
+        const user = { email: normalizedEmail, name: name.trim(), phone: phone.trim(), passwordHash: hash, salt, loyaltyPoints: 0, tier: 'Rookie Roller', orderIds: [], joinDate: new Date().toISOString() };
         const users = getUsers();
         users.push(user);
         saveUsers(users);
-        setSession({ email, name, isAdmin: false, token: generateToken() });
+        setSession({ email: normalizedEmail, name: user.name, isAdmin: false, token: generateToken() });
         return { ok: true };
     }
 
     async function login(email, password) {
+        if (!email || !password) return { ok: false, error: 'Email and password are required.' };
         const user = findUser(email);
         if (!user) return { ok: false, error: 'No account.' };
         const hash = await hashPassword(password, user.salt);
         if (hash !== user.passwordHash) return { ok: false, error: 'Incorrect password.' };
-        setSession({ email, name: user.name, isAdmin: false, token: generateToken() });
+        setSession({ email: user.email, name: user.name, isAdmin: false, token: generateToken() });
         return { ok: true };
     }
 

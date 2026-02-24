@@ -7,7 +7,9 @@
         try {
             const data = localStorage.getItem(CART_KEY);
             return data ? JSON.parse(data) : [];
-        } catch (e) { return []; }
+        } catch {
+            return [];
+        }
     }
 
     function saveCart(cart) {
@@ -17,17 +19,18 @@
 
     function addToCart(productId) {
         const cart = getCart();
-        const product = PRODUCTS.find(p => p.id === productId);
-        if (!product) return;
-        
-        const existing = cart.find(i => i.id === productId);
-        if (existing) { existing.qty++; } 
-        else { cart.push({ id: productId, qty: 1, name: product.name, price: product.price, emoji: product.emoji }); }
-        
+        const product = (window.PRODUCTS || []).find((p) => p.id === productId);
+        if (!product) return false;
+
+        const existing = cart.find((i) => i.id === productId);
+        if (existing) existing.qty += 1;
+        else cart.push({ id: productId, qty: 1, name: product.name, price: product.price, emoji: product.emoji });
+
         saveCart(cart);
-        alert(`✅ ${product.name} added to cart!`);
+        return true;
     }
 
     window.addToCart = addToCart;
     window.getCart = getCart;
+    window.saveCart = saveCart;
 }());
