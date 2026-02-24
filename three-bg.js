@@ -42,36 +42,31 @@ function init() {
     cyanLight.position.set(-200, 300, 100);
     scene.add(cyanLight);
 
-    // Smoke Load
-    const loader = new THREE.TextureLoader();
-    loader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/lava/cloud.png', function (texture) {
-        const smokeGeo = new THREE.PlaneGeometry(500, 500);
-        const smokeMat = new THREE.MeshLambertMaterial({
-            map: texture,
-            transparent: true,
-            opacity: 0.15,
-            depthWrite: false,
-            color: 0x222222
-        });
-
-        for (let p = 0; p < 45; p++) {
-            const particle = new THREE.Mesh(smokeGeo, smokeMat);
-            particle.position.set(
-                Math.random() * 1000 - 500,
-                Math.random() * 1000 - 500,
-                Math.random() * 1000 - 100
-            );
-            particle.rotation.z = Math.random() * 360;
-            scene.add(particle);
-            smokeParticles.push(particle);
-        }
-        
-        // Add Ash Particles
-        createAsh();
-        animate();
+        // Smoke layers (procedural texture, no external runtime dependency)
+    const smokeGeo = new THREE.PlaneGeometry(500, 500);
+    const smokeMat = new THREE.MeshLambertMaterial({
+        transparent: true,
+        opacity: 0.12,
+        depthWrite: false,
+        color: 0x222222
     });
 
-    window.addEventListener('resize', onWindowResize, false);
+    for (let p = 0; p < 45; p++) {
+        const particle = new THREE.Mesh(smokeGeo, smokeMat);
+        particle.position.set(
+            Math.random() * 1000 - 500,
+            Math.random() * 1000 - 500,
+            Math.random() * 1000 - 100
+        );
+        particle.rotation.z = Math.random() * 360;
+        scene.add(particle);
+        smokeParticles.push(particle);
+    }
+
+    createAsh();
+    animate();
+
+window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('visibilitychange', handleVisibilityChange, false);
 }
 
