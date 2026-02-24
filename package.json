@@ -1,0 +1,11 @@
+{
+  "name": "rollon-mvp-pitch-final",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "check:syntax": "node scripts/check-syntax.js",
+    "check:links": "node scripts/check-links.js",
+    "test": "node --test tests/*.test.js",
+    "ci": "npm run check:syntax && npm run check:links && npm test"
+  }
+}

@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Checkout | Rollon'</title><link rel="stylesheet" href="styles.css"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Rollon'</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
     <nav class="navbar"></nav>
-    <main class="container" style="margin-top: 150px;">
-        <div class="glass-card">
+    <main class="container page-main checkout-layout">
+        <section class="glass-card">
             <h2>Complete Your Order</h2>
-            <p>Secure checkout with bKash, Nagad, and Cards.</p>
-        </div>
+            <form id="checkout-form" class="form-stack" novalidate>
+                <label>Full Name <input id="full-name" type="text" required></label>
+                <label>Phone <input id="phone" type="tel" required></label>
+                <label>Address <textarea id="address" required></textarea></label>
+                <label>Payment Method
+                    <select id="payment-method" required>
+                        <option value="">Select</option>
+                        <option value="bkash">bKash</option>
+                        <option value="nagad">Nagad</option>
+                        <option value="card">Card</option>
+                    </select>
+                </label>
+                <button type="submit" class="cta-button primary">Place Order</button>
+            </form>
+            <p id="checkout-status" aria-live="polite"></p>
+        </section>
+        <section class="glass-card">
+            <h3>Order Summary</h3>
+            <ul id="checkout-cart-items"></ul>
+            <p><strong>Total: <span id="checkout-total">৳0</span></strong></p>
+        </section>
     </main>
-    <script src="js/config.js"></script><script src="js/app.js"></script>
+    <script src="js/config.js" defer></script>
+    <script src="js/products-data.js" defer></script>
+    <script src="js/auth.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/monitoring.js" defer></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/checkout-page.js" defer></script>
 </body>
 </html>
