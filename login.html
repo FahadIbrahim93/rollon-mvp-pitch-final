@@ -11,24 +11,42 @@
     <nav class="navbar"></nav>
     <main class="container page-main auth-layout">
         <section class="glass-card auth-card">
-            <h1>Login</h1>
+            <h2 style="color: var(--accent-cyan); margin-bottom: 2rem;">Welcome Back</h2>
             <form id="login-form" class="form-stack" novalidate>
-                <label>Email <input id="login-email" type="email" required></label>
-                <label>Password <input id="login-password" type="password" required></label>
-                <button type="submit" class="cta-button primary">Sign In</button>
+                <div>
+                    <label for="login-email" style="display: block; color: var(--text-main); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">Email Address</label>
+                    <input id="login-email" type="email" placeholder="your@email.com" required>
+                </div>
+                <div>
+                    <label for="login-password" style="display: block; color: var(--text-main); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">Password</label>
+                    <input id="login-password" type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="cta-button primary" style="width: 100%; margin-top: 1rem;">Sign In</button>
             </form>
         </section>
 
         <section class="glass-card auth-card">
-            <h2>Create Account</h2>
+            <h2 style="color: var(--accent-cyan); margin-bottom: 2rem;">New Member?</h2>
             <form id="register-form" class="form-stack" novalidate>
-                <label>Name <input id="register-name" type="text" required></label>
-                <label>Email <input id="register-email" type="email" required></label>
-                <label>Phone <input id="register-phone" type="tel" required></label>
-                <label>Password <input id="register-password" type="password" minlength="8" required></label>
-                <button type="submit" class="cta-button primary">Register</button>
+                <div>
+                    <label for="register-name" style="display: block; color: var(--text-main); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">Full Name</label>
+                    <input id="register-name" type="text" placeholder="John Doe" required>
+                </div>
+                <div>
+                    <label for="register-email" style="display: block; color: var(--text-main); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">Email Address</label>
+                    <input id="register-email" type="email" placeholder="your@email.com" required>
+                </div>
+                <div>
+                    <label for="register-phone" style="display: block; color: var(--text-main); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">Phone Number</label>
+                    <input id="register-phone" type="tel" placeholder="+880 1XXX-XXXXXX" required>
+                </div>
+                <div>
+                    <label for="register-password" style="display: block; color: var(--text-main); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">Password (min. 8 characters)</label>
+                    <input id="register-password" type="password" placeholder="••••••••" minlength="8" required>
+                </div>
+                <button type="submit" class="cta-button primary" style="width: 100%; margin-top: 1rem;">Create Account</button>
             </form>
-            <p id="auth-status" aria-live="polite"></p>
+            <p id="auth-status" aria-live="polite" style="margin-top: 1rem; text-align: center; color: var(--text-muted);"></p>
         </section>
     </main>
     <script src="js/config.js" defer></script>
