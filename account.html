@@ -9,16 +9,47 @@
 <body>
     <nav class="navbar"></nav>
     <main class="container page-main">
-        <section class="glass-card">
-            <h1>My Account</h1>
-            <p><strong>Name:</strong> <span id="account-name">-</span></p>
-            <p><strong>Email:</strong> <span id="account-email">-</span></p>
-            <button id="logout-btn" class="cta-button secondary" type="button">Logout</button>
-        </section>
+        <h1 class="page-title">My Account</h1>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            <section class="glass-card">
+                <h2 style="color: var(--accent-cyan); margin-bottom: 1.5rem;">Account Information</h2>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.25rem;">Full Name</p>
+                        <p style="color: var(--text-main); font-weight: 600;" id="account-name">-</p>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.25rem;">Email Address</p>
+                        <p style="color: var(--text-main); font-weight: 600;" id="account-email">-</p>
+                    </div>
+                </div>
+                <button id="logout-btn" class="cta-button secondary" type="button" style="width: 100%; margin-top: 1.5rem;">Sign Out</button>
+            </section>
+
+            <section class="glass-card">
+                <h2 style="color: var(--accent-cyan); margin-bottom: 1.5rem;">Account Stats</h2>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.25rem;">Total Orders</p>
+                        <p style="color: var(--accent-cyan); font-weight: 700; font-size: 1.5rem;" id="order-count">0</p>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.25rem;">Loyalty Points</p>
+                        <p style="color: var(--accent-green); font-weight: 700; font-size: 1.5rem;" id="loyalty-points">0</p>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.25rem;">Member Since</p>
+                        <p style="color: var(--text-main); font-weight: 600;" id="member-since">-</p>
+                    </div>
+                </div>
+            </section>
+        </div>
 
         <section class="glass-card">
-            <h2>My Orders</h2>
-            <ul id="orders-list"></ul>
+            <h2 style="color: var(--accent-cyan); margin-bottom: 1.5rem;">Recent Orders</h2>
+            <div id="orders-list" style="display: flex; flex-direction: column; gap: 1rem;"></div>
+            <p id="no-orders" style="color: var(--text-muted); text-align: center; padding: 2rem 0;">No orders yet. <a href="products.html" style="color: var(--accent-cyan); text-decoration: underline;">Browse our collection</a></p>
         </section>
     </main>
     <script src="js/config.js" defer></script>
